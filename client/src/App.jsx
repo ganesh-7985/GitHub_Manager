@@ -1,10 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from '../src/pages/LoginPage.jsx';
-import ReposPage from '../src/pages/ReposPage.jsx';
-import RepoDetailsPage from '../src/pages/RepoDetailsPage.jsx';
-import ProfilePage from '../src/pages/ProfilePage.jsx';
-
+import LoginPage from './pages/LoginPage.jsx';
+import ReposPage from './pages/ReposPage.jsx';
+import RepoDetailsPage from './pages/RepoDetailsPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 
 function App() {
   return (
@@ -21,3 +20,4 @@ function App() {
 }
 
 export default App;
+
