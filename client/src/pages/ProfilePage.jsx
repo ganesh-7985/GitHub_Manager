@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-
 const ProfilePage = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
 
   useEffect(() => {
     axios
@@ -24,7 +23,6 @@ const ProfilePage = () => {
     axios
       .post(`${backendUrl}/auth/logout`, {}, { withCredentials: true })
       .then(() => {
-        // On logout redirect to login page
         window.location.href = '/login';
       })
       .catch((err) => console.error(err));
@@ -34,7 +32,7 @@ const ProfilePage = () => {
   if (!profile) return <div>Profile not available.</div>;
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div className="container">
       <h2>Profile</h2>
       <p><strong>Name:</strong> {profile.name}</p>
       <p><strong>Email:</strong> {profile.email}</p>
@@ -46,3 +44,4 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+

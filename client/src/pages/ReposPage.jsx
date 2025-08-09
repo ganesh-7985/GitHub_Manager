@@ -6,7 +6,7 @@ const ReposPage = () => {
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
 
   useEffect(() => {
     axios
@@ -19,8 +19,7 @@ const ReposPage = () => {
         console.error(err);
         setLoading(false);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [backendUrl]);
 
   const toggleAutoReview = (repo) => {
     axios
@@ -41,30 +40,21 @@ const ReposPage = () => {
   if (loading) return <div>Loading repositories...</div>;
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div className="container">
       <h2>Your Repositories</h2>
       {repos.length === 0 ? (
         <p>No repositories found for this user.</p>
       ) : (
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+        <ul className="repo-list">
           {repos.map((repo) => (
-            <li
-              key={repo.id}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '0.5rem 0',
-                borderBottom: '1px solid #ddd'
-              }}
-            >
+            <li key={repo.id} className="repo-item">
               <div>
                 <strong>{repo.name}</strong>
-                <div style={{ fontSize: '0.8rem' }}>
+                <div className="repo-meta">
                   Stars: {repo.stars} &nbsp;|&nbsp; Default branch: {repo.defaultBranch}
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <div className="repo-actions">
                 <button onClick={() => toggleAutoReview(repo)}>
                   {repo.autoReview ? 'Disable Auto Review' : 'Enable Auto Review'}
                 </button>
@@ -79,3 +69,4 @@ const ReposPage = () => {
 };
 
 export default ReposPage;
+
