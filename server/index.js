@@ -5,19 +5,15 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import passport from 'passport';
 
-// Load environment variables
+
 dotenv.config();
 
-// Initialise Express app
 const app = express();
 
-// Middleware
 const clientOrigin = process.env.CLIENT_URL || 'http://localhost:5173';
 app.use(cors({ origin: clientOrigin, credentials: true }));
 app.use(express.json());
 
-// Session configuration. In production you should store sessions in a
-// persistent store such as Redis or Mongo.
 app.use(
   session({
     secret: process.env.SESSION_SECRET || 'change_me',
@@ -26,24 +22,21 @@ app.use(
   })
 );
 
-// Initialise Passport strategies
 import './config/passport.js';
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Routes
+
 import authRoutes from './routes/auth.js';
 import apiRoutes from './routes/api.js';
 
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
-// Default route
 app.get('/', (req, res) => {
   res.send('Git Management server running');
 });
 
-// Connect to MongoDB and start server
 const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/gitmanager';
 mongoose
   .connect(mongoUri)
