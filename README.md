@@ -11,12 +11,6 @@ providers and manage repository settings through a GitHub‑style interface.
 
 ## Getting Started
 
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) 18 or later
-- A running [MongoDB](https://www.mongodb.com/) instance
-- OAuth credentials for GitHub
-
 ### Backend Setup
 
 ```bash
